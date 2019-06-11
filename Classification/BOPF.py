@@ -121,7 +121,7 @@ class BOPF(Classifier):
                 numSelected_cos = i + 1
         return bestAcc_ed, bestAcc_cos, numSelected_ed, numSelected_cos, meanCntsByCls, tfIdfsByCls, bestSigmas2Centroids
     
-    def train(self, timing = True):
+    def train(self):
         
         trainTss_padded = []
         maxTsLen = max(self.trainLens)
@@ -145,8 +145,7 @@ class BOPF(Classifier):
 #         numBitsWinLen = bu.numBits(np.ceil((self.maxWinLen - self.minWinLen) / self.winLenStep) + 1)
 #         numBitsWordSize = bu.numBits(np.ceil((self.maxWordSize - self.minWordSize) / self.wordSizeStep) + 1)
         
-        if timing:
-            tic = perf_counter()
+        tic = perf_counter()
         
         allCumSums = gu.getCumSums(trainTss_padded)
         allCumSums_2 = gu.getCumSums(trainTss_padded * trainTss_padded)
@@ -228,14 +227,11 @@ class BOPF(Classifier):
                 if methodId not in self.allInfo.keys():
                     self.allInfo[methodId] = allInfo[methodId]   
             
-        if timing:
-            toc = perf_counter()
-            self.trainTime = toc - tic
+        toc = perf_counter()
+        self.trainTime = toc - tic
             
     
-    def test(self, timing = True):
-        if timing:
-            self.testTimePerTs = 0
+    def test(self):
         
         self.preLabels = np.zeros(self.numTest, dtype = 'uint32')
         for tsId in range(self.numTest):
@@ -249,9 +245,6 @@ class BOPF(Classifier):
 #             ts = scale(self.testTss[tsId])
             ts = np.array(self.testTss[tsId])
             tsLen = self.testLens[tsId]
-            
-            if timing:
-                tic = perf_counter()
             
             cumSums = gu.getCumSums(ts)
             cumSums_2 = gu.getCumSums(ts * ts)
@@ -300,13 +293,7 @@ class BOPF(Classifier):
                     votes[preLabel] += 1
             
             self.preLabels[tsId] = np.argmax(votes) 
-            if timing:
-                toc = perf_counter()
-                self.testTimePerTs += toc - tic
             
-                        
-        if timing:
-            self.testTimePerTs /= self.numTest
         self.accuracy = accuracy_score(self.testLabels, self.preLabels)
         
 if __name__ == '__main__':
@@ -330,5 +317,5 @@ if __name__ == '__main__':
     
     fName = savePath + '/time_'+ dataset + '_BOPF_' + runId + '.txt'
     file = open(fName, 'w')
-    file.write(dataset + "    " + str(bopf.trainTime) + "    " + str(bopf.testTimePerTs) + "\n")
+    file.write(dataset + "    " + str(bopf.trainTime) + "\n")
     
