@@ -310,7 +310,7 @@ if __name__ == '__main__':
     bopf.loadUCRDataset_2018(dataset, 'TEST')
     bopf.test()
     
-    fName = savePath + '/accuracies_' + dataset + '_BOPF_' + runId + '.txt'
+    fName = savePath + '/accuracy_' + dataset + '_BOPF_' + runId + '.txt'
     file = open(fName, 'w')
     file.write(str(bopf.accuracy))
     file.close()
