@@ -27,7 +27,31 @@ Running HBOP.py will result in the following output files.
     This file shows the running time of the full version of HBOP. The four outputs are the dataset name, training time and accuracy.
 
 Please note that in certain cases, the accuracies of the full version of HBOP in the "accuracies" file and the "time" file can be different. This is likely due to implementation bias. Fortunately, this only happened in very few cases in our experiments. When such an inconsistency occured, we used the accuracy in the "time" file as the final accuracy.
+
+Also, we have included our Python implementation of BOPF in BOPF.py under the Classification folder, which implements the BOPF algorithm proposed in
     
+    	Xiaosheng Li, Jessica Lin: Linear Time Complexity Time Series Classification with Bag-of-Pattern-Features. ICDM 2017: 277-286
+
+To use the code, please keep all the packages and files in this repository in a single folder, and make sure that you have Python 3 and all the packages we have used installed. Before running the code, first change the path in line 13 of BOPF.py to the mother folder's path. Then, run the following command in your command council.
+
+    python.exe [full path of BOPF.py] [dataset name] [runId] [mother path of the dataset] [full path of the folder to save the results]
+
+Here runId is used to distinguish between different runs on the same dataset.
+
+For example, suppose you have saved the entire repository at G:\HBOP, and you wish to run BOPF on the sample dataset (FaceFour) included in our repository and save the outputs in the Results folder. In this case, please run the following command.
+
+    python.exe G:\HBOP\Classification\BOPF.py FaceFour 0 G:/HBOP/Data G:/HBOP/Results  
+
+Running BOPF.py will result in the following output files.
+
+1. accuracy_[dataset name]_BOPF.[runId].txt
+
+    This file shows the accuracy of BOPF
+    
+2. time_[dataset name]_BOPF.[runId].txt
+
+    This file shows the running time of BOPF.
+
 # How did we preprocess the data?
 
 We have used datasets from the latest version of the UCR archive 
