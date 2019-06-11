@@ -92,7 +92,7 @@ class SLA(Discretizer):
         else:
             for i, pos in enumerate(poses):
                 transformedTs[i][:] = self.transformSub(cumSums, cumSums_2, wCumSums, pos)
-        transformedTs = np.around(transformedTs, 2) 
+        #transformedTs = np.around(transformedTs, 2) 
         return transformedTs
     
     def transfromTssFromCumSums(self, allCumSums, allCumSums_2, allWCumSums, tsLens = None, stride = 1, keepVacancy = False, returnPoses = False):
