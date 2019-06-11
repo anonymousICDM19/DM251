@@ -202,7 +202,7 @@ class HBOP(Classifier):
         preLabel = XMeansRelabelMap[np.argmin(dists)] if XMeansRelabelMap is not None else np.argmin(dists)
         return preLabel, cv1_score
         
-    def train(self, timing = True):
+    def train(self):
         
         trainTss_padded = []
         maxTsLen = max(self.trainLens)
@@ -543,7 +543,7 @@ class HBOP(Classifier):
         ############################
             
     
-    def test(self, timing = True):
+    def test(self):
         
         numCases = len(self.allFineMetIds)
         numCases *= 2
